@@ -1,0 +1,53 @@
+buildscript {
+    ext.kotlin_version = '1.2.41'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.1.RELEASE"
+        classpath "com.google.cloud.tools:appengine-gradle-plugin:1.3.4"
+    }
+}
+
+
+plugins {
+    id 'java'
+}
+
+group 'com.idexx.lims'
+version '1'
+
+apply plugin: 'kotlin'
+apply plugin: "kotlin-spring"
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'com.google.cloud.tools.appengine'
+apply plugin: "war"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile name: "spring-boot-legacy-2.0.0.BUILD-SNAPSHOT"
+
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
